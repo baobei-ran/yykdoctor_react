@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
-
+import './app.scss'
+import SetTime from './components/SetTime'
 function App() {
   return (
     <div className="App">
@@ -18,7 +18,13 @@ function App() {
         >
           Learn React
         </a>
+        <div className='test'>
+            scss测试啊
+        </div>
       </header>
+      <section>
+        <SetTime />
+      </section>
     </div>
   );
 }

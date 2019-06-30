@@ -11,3 +11,176 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+/*reset*/
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+html button::-moz-focus-inner {
+  border-color: transparent !important;
+}
+
+input[type="submit"], input[type="reset"], input[type="button"], input[type="text"], input[type="password"], textarea, button {
+  -webkit-appearance: none !important;
+}
+
+html, body {
+  color: #333;
+  font-size: 100px;
+  font-family: "Microsoft YaHei", PingFangSC-Regular, Arial, sans-serif;
+  max-width: 640px;
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0 auto;
+  /*overflow-x: hidden;*/
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.before:before, .after:after {
+  display: table;
+  content: " ";
+}
+
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+  padding: 0;
+}
+
+input, textarea, select {
+  font-size: 100%;
+  font-family: inherit;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, form {
+  margin: 0;
+}
+
+ul, ol {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+img {
+  pointer-events: none;
+}
+
+img, input {
+  width: 100%;
+  border: 0;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+a, a:hover, a:active, a:visited, a:link, a:focus,
+input, input:hover, input:active, input:visited, input:link, input:focus {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  background: none;
+  text-decoration: none;
+  border: none;
+}
+
+em, i, u {
+  font-style: normal;
+}
+
+strong, b {
+  font-weight: normal;
+}
+
+button {
+  border: 0;
+  outline: none;
+  list-style: none;
+}
+
+input::-moz-placeholder {
+  font-size: .28rem;
+  color: #CCC;
+}
+
+input:-ms-input-placeholder {
+  font-size: .28rem;
+  color: #CCC;
+}
+
+input::-webkit-input-placeholder {
+  font-size: .28rem;
+  color: #CCC;
+}
+
+textarea {
+  resize: none;
+}
+
+textarea::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: #ccc;
+  font-size: 0.3rem;
+}
+
+textarea:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #ccc;
+  font-size: 0.3rem;
+}
+
+textarea::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #ccc;
+  font-size: 0.3rem;
+}
+
+textarea:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: #ccc;
+  font-size: 0.3rem;
+}
+
+/*简写属性*/
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+/*显示、隐藏*/
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+/*容器从定*/
+.reset_box {
+  background: #fff;
+  padding: .3rem;
+  font-size: 0;
+  line-height: 1;
+}
+
+/*20像素上下间距*/
+.spacing {
+  height: .2rem;
+  width: 100%;
+  background: #F8F8FA;
+}
+
+
+
