@@ -1,12 +1,7 @@
-body {
-    font-size: 16px;
-    text-align: center;
-}
-.test {
-    font-size: 20px;
-    color: blue;
-    text-align: center;
-     background-color: red;
-     line-height: 40px;
-}
 
+@import './assets/scss/setTime.scss';  // 医生设置问诊 setTime 样式
+@import './assets/scss/Agreement.scss'; // 医生协议 Agreement 样式
+@import './assets/scss/Details.scss';   // 文章详情 Details 样式
+
+@import './assets/scss/scss-recipe/cfdetails.scss'; // 患者处方
+@import './assets/scss/scss-recipe/Cfdownload.scss' // 患者处方图

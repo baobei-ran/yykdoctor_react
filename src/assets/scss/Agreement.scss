@@ -1,0 +1,32 @@
+@function rem($px) {
+    @return $px / 100+rem;
+}
+.Agreement {
+    width: 100%;
+    padding: rem(30);
+    font-size:rem(28);
+    background-color: #fff;
+    color: #333;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    &_top {
+        width: 100%;
+         > p {
+            line-height: rem(56);
+            margin-bottom: rem(20);
+         }
+    }
+    &-list {
+        width: 100%;
+        > ul {
+            li {
+                line-height: rem(56);
+                margin-bottom: rem(10);
+                font-size: rem(26);
+            }
+            .Agreement-title {
+                font-size: rem(32);
+            }
+        }
+    }
+}

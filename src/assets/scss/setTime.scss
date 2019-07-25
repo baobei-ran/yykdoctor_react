@@ -1,0 +1,142 @@
+@function rem($px) {
+    @return $px / 100+rem;
+}
+.am-modal-body {
+    color: #333;
+}
+
+.SetTime {
+    width: 100%;
+    font-size: rem(28);
+    > p {
+        font-size: rem(24);
+        height: rem(72);
+        line-height: rem(72);
+        background-color: #FFF6DA;
+        color: #E1A628;
+        text-align: left;
+        padding-left: rem(30);
+    }
+    .timer {
+        width: 100%;
+        padding: rem(30);
+        position: relative;
+        background-color: #fff;
+    .timer-box {
+        width: 100%;
+        overflow-x: scroll;
+        padding-left: rem(88);
+        background-color: #fff;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        >.timer-table {
+            border-collapse: collapse;
+            font-size: rem(24);
+            box-sizing: border-box;
+            
+           > thead {
+               margin-left: rem(88);
+                tr {
+                    th:first-child {
+                        position: absolute;
+                        left: rem(30);
+                        background-color: #fff;
+                    }
+                    th {
+                        width: rem(88);
+                        height: rem(72);
+                        min-width: rem(88);
+                        border: 1px solid #EBEBEB;
+                    }
+                }
+            }
+            > tbody {
+               > tr {
+                    td {
+                        width: rem(88);
+                        height: rem(72);
+                        border: 1px solid #EBEBEB;
+                        text-align: center;
+                    }
+                    td.ysz {
+                        background-color: #DBDBDB;
+                    }
+                    td.ytz {
+                        background-color: #FF9B51;
+                    }
+                    td:first-child {
+                        position: absolute;
+                        left: rem(30);
+                        background-color: #fff;
+                        border-top: 0;
+                        line-height: rem(72);
+                    }
+                }
+            }
+           
+        }
+    }
+    }
+    .setTime-setInfo {
+        width: 100%;
+        padding: rem(30);
+        background-color: #fff;
+        margin-top: rem(20);
+        ul {
+            li {
+                display: -webkit-flex;
+                display: flex;
+                height: rem(92);
+                -webkit-align-items: center;
+                align-items: center;
+                > span:first-child {
+                    display: inline-block;
+                    width: 30%;
+                }
+                
+            }
+            li:first-child {
+               > span:first-child {
+                    display: inline-block;
+                    width: 25%;
+                }
+                >p.types {
+                    span {
+                        display: inline-block;
+                        width: rem(128);
+                        height: rem(46);
+                        -webkit-border-radius: rem(4);
+                        border-radius: rem(4);
+                        font-size: rem(28);
+                        margin-right: rem(30);
+                        text-align: center;
+                        line-height: rem(46);
+                        border: 1px solid #ccc;
+                        color: #777777;
+                    }
+                    .blue {
+                        background-color: #3B89FE;
+                        color: #fff;
+                        border:0;
+                    }
+                }
+            }
+        }
+    }
+    .setTime-footer {
+        margin-top: rem(150);
+        margin-bottom: rem(50);
+        text-align: center;
+        a {
+            width: rem(412);
+            margin: 0 auto;
+            font-size: rem(28);
+            height: rem(80);
+            line-height: rem(80);
+            -webkit-border-radius: rem(60);
+            border-radius: rem(60);
+            background: #3B89FE;
+        }
+    }
+}

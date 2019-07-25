@@ -1,0 +1,178 @@
+@function ren($px) {
+    @return $px / 100+rem;
+}
+
+.cfdetails {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    font-size: rem(28);
+    background-color: #f9f9f9;
+    &-title {
+        width: 100%;
+        .cfdetails-checks {
+            width: 100%;
+            height: rem(88);
+            line-height: rem(88);
+            padding: 0 rem(32);
+            font-size: rem(32);
+            > img {
+                width: rem(40);
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: rem(20);
+            }
+            > span {
+                font-weight: 600;
+                vertical-align: middle;
+            }
+        }
+        .cfdetails-blue {
+            background-color: #EDF3FE;
+            > span {
+                color: #5189F6;
+            }
+        }
+        .cfdetails-orange {
+            background-color: #FDF2EE;
+            > span {
+                color: #FE7A4C;
+            }
+        }
+    }
+    &-msg {
+        width: 100%;
+        padding: rem(30);
+        background-color: #fff;
+        .cf-pic {
+            width: 100%;
+            border: 1px solid #d3d3d3;
+            height: rem(220);
+            overflow: hidden;
+            position: relative;
+            .cf-box {
+                width: 200%;
+                -webkit-transform-origin-x: 0;
+                -webkit-transform-origin-y: 0;
+                -webkit-transform: scale(0.5);
+                transform: scale(0.5);
+                padding: rem(20) 0;
+                .cf-head {
+                    >ul {
+                        overflow: hidden;
+                        li {
+                            font-size: rem(24);
+                        }
+                    }
+                    > h1 {
+                        font-size: rem(34);
+                        padding: rem(30) 0;
+                        text-align: center;
+                        letter-spacing: 2px;
+                    }
+                }
+                .cf-userInfo {
+                    ul {
+                        padding: 0 rem(30);
+                        li {
+                            width: 33%;
+                            height: rem(50);
+                            line-height: rem(50);
+                        }
+                    }
+                    > p {
+                        padding-left: rem(30);
+                        margin-top: rem(30);
+                    }
+                }
+            }
+            .cf-btn {
+                position: absolute;
+                display: block;
+                bottom: rem(20);
+                left: 50%;
+                -webkit-transform: translateX(-50%);
+                transform: translateX(-50%);
+                padding: 0 rem(26);
+                height: rem(50);
+                line-height: rem(50);
+                background-color: #000;
+                color: #fff;
+                border-radius: rem(50);
+                font-size: rem(24);
+                opacity: .5;
+            }
+        }
+    }
+    &-user {
+        width: 100%;
+        >ul {
+            margin-top: rem(20) ;
+            padding: rem(15) rem(30);
+            background-color: #fff;
+            font-size: rem(26);
+            li {
+                padding: rem(10) 0;
+                line-height: rem(40);
+                span {
+                    display: inline-block;
+                   > b {
+                        color: #ccc;
+                        margin: 0 rem(10);
+                    }
+                }
+                span:first-child {
+                    width: 20%;
+                    color:#808080;
+                }
+                span:last-child {
+                    width: 79%;
+                    color: #333;
+                    
+                }
+            }
+        }
+    }
+    &-drug {
+        width: 100%;
+        margin-top: rem(20);
+        padding: rem(30);
+        background-color: #fff;
+        > h2 {
+            font-size: rem(28);
+            color: #333;
+            font-weight: 500;
+        }
+        >ul {
+            li {
+                font-size: rem(26);
+                color: #333;
+                border-top: 1px solid #F0F2F6;
+                padding: rem(30) 0;
+                dl {
+                    margin-top: 0;
+                    dd {
+                        color: #808080;
+                    }
+                }
+                >p {
+                    color: #808080;
+                    font-size: rem(24);
+                    span {
+                        display: inline-block;
+                        line-height: rem(40);
+                    }
+                    span:first-child {
+                        width: 20%;
+                    }
+                    span:last-child {
+                        width: 79%;
+                    }
+                }
+            }
+            li:first-child {
+                border: 0;
+            }
+        }
+    }
+}

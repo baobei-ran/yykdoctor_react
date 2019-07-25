@@ -183,4 +183,6 @@ textarea:-ms-input-placeholder {
 }
 
 
-
+html, body, #root {
+  height: 100%;
+}

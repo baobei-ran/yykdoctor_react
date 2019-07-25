@@ -29,7 +29,7 @@ function apiAxios(method, url, params, response) {
     data: method === 'POST' || method === 'PUT' ? params : null,
     params: method === 'GET' || method === 'DELETE' ? params : null,
   }).then(function (res) {
-    response(res);
+    response(res.data);
   }).catch(function (err) {
     console.log(err);
   })
@@ -50,13 +50,13 @@ var $http = {
     return apiAxios('DELETE', url, params, response)
   },
   baseURL: baseURL,
-  $postJson (url, data, headers, response, error) {
+  $postJson (url, data, headers, response) {
       axios({
           method: 'post',
           url: baseURL+url,
           data: data,
           headers: headers? headers : {"Content-Type":"application/json;charset=UTF-8"}
-      }).then(res => { response(res)}).catch(err => { error(err) })
+      }).then(res => { response(res.data)}).catch(err => { console.log(err) })
   }
 }
 
