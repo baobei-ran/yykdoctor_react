@@ -63,7 +63,7 @@ class Cfdetails extends React.Component {
         return (
             <div className='cfdetails'>
                 {
-                    d.odata.drug_type == 2? < TitleMsg data={ d.odata } /> : d.odata.drug_type == 1? < TitleMsgs2 datas={ d.odata } /> : ''
+                    d.odata.drug_type == 2? < TitleMsg data={ d.odata } /> : d.odata.drug_type == 1? < TitleMsgs2 data={ d.odata } /> : ''
                 }
                 <div className='cfdetails-msg'>
                     <div className='cf-pic'>

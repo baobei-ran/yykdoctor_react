@@ -27,9 +27,10 @@ class Cfdownload extends React.Component {
                                 {name: '过往病史：',val: res.data.ago?res.data.ago : '无'}]
                 })
                var t = setTimeout(() => {
-                   var doms = _self.refs.htmls;
-                   console.log(doms)
-                   var width = doms.offsetWidth; //获取dom 宽度
+                    var doms = _self.refs.htmls;
+                    var domBox =_self.refs.htmlContent;
+                    domBox.style['margin-bottom'] = "-"+domBox.offsetHeight / 2+"px";  // 解决 transform缩放空白占位问题
+                    var width = doms.offsetWidth; //获取dom 宽度
                     var height = doms.offsetHeight; //获取dom 高度
                     var canvas = document.createElement("canvas"); //创建一个canvas节点
                     var scale = window.devicePixelRatio * 1;//获取设备的显示参数
@@ -49,6 +50,7 @@ class Cfdownload extends React.Component {
 
                     html2canvas(doms, opts).then(function (canvas) {
                         var imgs = canvas.toDataURL("image/png");
+                        // console.log(imgs)
                         _self.setState({
                             base64Pic: imgs
                         })
@@ -98,7 +100,7 @@ class Cfdownload extends React.Component {
             <div className='Cfdownload'>
                 <div className='Cfdownload-pic flex flex-y'>
                     <div className='pic-box' ref='htmls'>
-                        <div className='cf-box'>
+                        <div className='cf-box' ref='htmlContent' >
                             <div className='cf-head'>
                                 <ul className='flex flex-sa'>
                                     <li>

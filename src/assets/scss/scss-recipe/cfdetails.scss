@@ -151,6 +151,9 @@
                 padding: rem(30) 0;
                 dl {
                     margin-top: 0;
+                    dt {
+                        line-height: rem(40);
+                    }
                     dd {
                         color: #808080;
                     }
@@ -167,6 +170,7 @@
                     }
                     span:last-child {
                         width: 79%;
+                        vertical-align: top;
                     }
                 }
             }
