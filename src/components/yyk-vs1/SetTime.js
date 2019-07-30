@@ -135,7 +135,6 @@ class SetTime extends Component {
    
     componentDidMount () { // 生命周期
         this.initdata();
-        this.ClicksaveComplete()
     }
 
     clickSetDate (e) { // 点击设定
@@ -271,12 +270,12 @@ class SetTime extends Component {
         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;
         var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
         console.log(isAndroid, isiOS)
-        // if (isAndroid) {
-        //     android.saveComplete();
-        // }
-        // if (isiOS) {
-        //     window.webkit.messageHandlers.saveComplete.postMessage(null);
-        // }
+        if (isAndroid) {
+            window.android.saveComplete();
+        }
+        if (isiOS) {
+            window.webkit.messageHandlers.saveComplete.postMessage(null);
+        }
       }
 
     render () {

@@ -14,8 +14,8 @@ class Cfdetails extends React.Component {
     }
     initdata () {
         var _self = this;
-        var { id } = this.props.match.params;
-        $http.post('/mobile/doch5/user_recipe_detail', { id: id }, function (res) {
+        var { did } = this.props.match.params;
+        $http.post('/mobile/doch5/user_recipe_detail', { id: did }, function (res) {
             console.log(res)
             if (res.code == 1) {
                 _self.setState({
@@ -55,7 +55,7 @@ class Cfdetails extends React.Component {
         return year+'-'+zero(month)+'-'+zero(day)+' '+zero(hour)+':'+zero(mins);
     }
     clickUprecipes () {
-        this.props.history.push('/Cfdownload/'+this.props.match.params.id)
+        this.props.history.push('/download/'+this.props.match.params.did)
     }
 
     render () {
