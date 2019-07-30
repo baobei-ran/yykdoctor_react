@@ -3,12 +3,13 @@ import {Switch,
     // BrowserRouter as Router, 
     HashRouter as Router,
     Route } from "react-router-dom";
-import SetTime from '../components/yyk-vs1/SetTime';
-import Details from '../components/yyk-vs1/Details';
-import Agreement from '../components/yyk-vs1/Agreement';
+import Load from './lazyRouter'; // 懒加载
 
-import Cfdetails from '../components/yyk-recipe/cfdetails';     // 患者处方
-import Cfdownload from '../components/yyk-recipe/Cfdownload';   // 患者处方单
+let SetTime = Load(() => import('../components/yyk-vs1/SetTime'));
+let Details = Load(() => import('../components/yyk-vs1/Details'));
+let Agreement = Load(() => import('../components/yyk-vs1/Agreement'));
+let Cfdetails = Load(() => import('../components/yyk-recipe/cfdetails'));     // 患者处方
+let Cfdownload = Load(() => import('../components/yyk-recipe/Cfdownload'));   // 患者处方单
 function ReactRouter () {
         return (
             <Router>

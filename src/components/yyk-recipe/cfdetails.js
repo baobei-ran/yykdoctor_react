@@ -11,6 +11,7 @@ class Cfdetails extends React.Component {
     }
     componentDidMount () {
         this.initdata()
+        // console.log(this.props.match.params)
     }
     initdata () {
         var _self = this;
