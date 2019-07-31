@@ -1,0 +1,119 @@
+@function rem($px) {
+    @return $px / 100+rem;
+}
+.color-red {
+    color: #E9541F;
+}
+.shopDetails {
+    width: 100%;
+    height: 100%;
+    background-color: #F4F4F4;
+    font-size: rem(28);
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    &-box {
+        width: 100%;
+        margin-bottom: rem(20);
+        .swiper-box {
+            width: 100%;
+            .swiper-container {
+                .swiper-wrapper {
+                    .swiper-slide {
+                        img {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+
+        .shop-info {
+            background-color: #fff;
+            width: 100%;
+            padding: rem(22);
+            > .color-red {
+                font-size: rem(22);
+                > span {
+                    font-size: rem(36);
+                }
+            }
+            > h4 {
+                margin-top: rem(20);
+                color: #333;
+            }
+            >p {
+                margin-top: rem(38);
+                font-size: rem(22);
+                color: #A9A9A9;
+            }
+        }
+        .detail_con {
+            width: 100%;
+            background-color: #fff;
+            margin-top: rem(20);
+            padding: rem(20) 0;
+            >ul {
+                li {
+                    font-size: rem(28);
+                    width: 100%;
+                    line-height: rem(40);
+                    padding: 0 rem(22);
+                    margin: rem(36) 0;
+                    overflow: hidden;
+                    span {
+                        float: left;
+                    }
+                    span:first-child {
+                        color: #808080;
+                        display: block;
+                        width: 28%;
+                    }
+                    span:last-child {
+                        color: #333;
+                        display: block;
+                        width: 70%;
+                    }
+                }
+                .border_blue {
+                    padding: 0;
+                    span:first-child {
+                        padding-left: 0.2rem;
+                        border-left: 3px solid #5189F6;
+                    }
+                    span:last-child {
+                        padding-left: rem(10);
+                    }
+                }
+            }
+            > ul:first-child {
+                border-bottom: 1px solid rgba(224,224,224,1);
+            }
+        }
+        .cont_img {
+            width: 100%;
+            ul {
+                width: 100%;
+                li {
+                    width: 100%;
+                    img {
+                        width: 100%;
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+    
+    .fail-msg {
+        width: 100%;
+        text-align: center;
+        margin-top: 30%;
+        font-size: rem(30);
+        color: #333;
+        img {
+            width: rem(260);
+            display: block;
+            margin: 0 auto;
+        }
+    }
+}

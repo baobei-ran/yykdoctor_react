@@ -10,6 +10,7 @@ let Details = Load(() => import('../components/yyk-vs1/Details'));
 let Agreement = Load(() => import('../components/yyk-vs1/Agreement'));
 let Cfdetails = Load(() => import('../components/yyk-recipe/cfdetails'));     // 患者处方
 let Cfdownload = Load(() => import('../components/yyk-recipe/Cfdownload'));   // 患者处方单
+let ShopDetails = Load(() => import('../components/yyk-shopping/ShopDetails')); // 商品详情
 function ReactRouter () {
         return (
             <Router>
@@ -19,8 +20,8 @@ function ReactRouter () {
                     <Route path="/Agreement" component={Agreement} />
                     <Route path="/detail/:did" component={Cfdetails} />
                     <Route path="/download/:did"  component={Cfdownload} />
-                    {/* <Route path="/hooksTest1" component={HooksTest1} />
-                    <Route path="/axiosTest" component={AxiosTest} />
+                    <Route path="/shopdetails/:did" component={ShopDetails} />
+                    {/* <Route path="/axiosTest" component={AxiosTest} />
                     <Route path="/hooksUseState" component={HooksUseState} /> */}
                 </Switch>
             </Router>

@@ -2,6 +2,7 @@ import React,{ Component } from 'react';
 import http from '../../api/index';
 import { Button,Toast,Modal } from 'antd-mobile';
 const alert = Modal.alert;
+
 class SetTime extends Component {
     constructor () {
         super ();
@@ -16,9 +17,11 @@ class SetTime extends Component {
             money: '',      // 金钱
             num: '',        // 人数
             disabled: false,    // 按钮控制
+            start_Time: '',
+            end_Time: '',
         }
         this.initdata = this.initdata.bind(this);
-        this.ClicksaveComplete = this.ClicksaveComplete.bind(this)
+        this.ClicksaveComplete = this.ClicksaveComplete.bind(this);
     }
 
     initdata () { // 数据展示
@@ -35,16 +38,37 @@ class SetTime extends Component {
                closeTime: res.time_close
            })
            if (res.code == 1) {
-            var AllDays = 15;
-            var num = (new Date().getDay()) + 1;
-            for (var i = num; i < AllDays; i++) {
-                SelectDate.push(setDate(new Date(), i))
-            }
-           if (SelectDate.length > 1) {
-             that.setState({
-                Time: SelectDate
-             })
-           }
+                if (res.clost_time) {  // 医生停诊时间
+                    function DoHandleMonth (val) {
+                        if (val < 10) {
+                            val = '0'+val
+                        }
+                        return val
+                    }
+                    var today = new Date((res.clost_time.start_time)*1000);
+                    var tMonth = DoHandleMonth(today.getMonth() + 1);
+                    var tDate = DoHandleMonth(today.getDate());
+                    // console.log(tMonth+'.'+tDate)
+                    var starts = tMonth+'.'+tDate
+                    var today_end = new Date((res.clost_time.end_time)*1000);
+                    var tMonth1 = DoHandleMonth(today_end.getMonth() + 1);
+                    var tDate1 = DoHandleMonth(today_end.getDate());
+                    var ends = tMonth1+'.'+tDate1;
+                    that.setState({
+                        start_Time: starts,
+                        end_Time: ends
+                    })
+                }
+                var AllDays = 15;
+                var num = (new Date().getDay()) + 1;
+                for (var i = num; i < AllDays; i++) {
+                    SelectDate.push(setDate(new Date(), i))
+                }
+                if (SelectDate.length > 1) {
+                    that.setState({
+                        Time: SelectDate
+                    })
+                }
            }
            setTimeout(() => {
            // 已设置的展示
@@ -63,8 +87,9 @@ class SetTime extends Component {
                                 var ds = that.refs.sw.children
                                 for (var i=0; i<ds.length; i++) {
                                    if (ds[i].getAttribute('data-date') == val.date) {
-                                       ds[i].className = 'ysz'
-                                       ds[i].style = 'background:url('+require("../../assets/img/icon/icon_ysz.png")+') no-repeat; background-size: contain'
+                                       ds[i].className = 'ysz';
+                                       ds[i].innerHTML = '<img src="'+require("../../assets/img/icon/icon_ysz.png")+'" alt="" />';
+                                    //    ds[i].style = 'background:url('+require("../../assets/img/icon/icon_ysz.png")+') no-repeat; background-size: contain'
                                    }
                                 } 
                             } else if (v.reg_time2) {
@@ -72,15 +97,17 @@ class SetTime extends Component {
                                 for (var o=0;o<dx.length; o++) {
                                    if (dx[o].getAttribute('data-date') == val.date) {
                                        dx[o].className = 'ysz';
-                                       dx[o].style = 'background:url('+require("../../assets/img/icon/icon_ysz.png")+') no-repeat; background-size: contain'
+                                       dx[o].innerHTML = '<img src="'+require("../../assets/img/icon/icon_ysz.png")+'" alt="" />';
+                                    //    dx[o].style = 'background:url('+require("../../assets/img/icon/icon_ysz.png")+') no-repeat; background-size: contain'
                                    }
                                 } 
                             } else if (v.reg_time3) {
                                 var dw = that.refs.ws.children
                                 for (var p=0; p<dw.length; p++) {
                                    if (dw[p].getAttribute('data-date') == val.date) {
-                                       dw[p].className = 'ysz'
-                                       dw[p].style = 'background:url('+require("../../assets/img/icon/icon_ysz.png")+') no-repeat; background-size: contain'
+                                       dw[p].className = 'ysz';
+                                       dw[p].innerHTML = '<img src="'+require("../../assets/img/icon/icon_ysz.png")+'" alt="" />';
+                                    //    dw[p].style = 'background:url('+require("../../assets/img/icon/icon_ysz.png")+') no-repeat; background-size: contain'
                                    }
                                 } 
                             }
@@ -99,13 +126,14 @@ class SetTime extends Component {
                 var id = tMonth + "-" + tDate;
                 that.state.Time.map((val,j) => {
                     if (id == val.id) {
-                        console.log(val)
+                        // console.log(val)
                         if (v.close_reg_time1) {
                             var ds = that.refs.sw.children
                             for (var i=0; i<ds.length; i++) {
                                if (ds[i].getAttribute('data-date') == val.date) {
-                                   ds[i].className = 'ytz'
-                                   ds[i].style = 'background:url('+require("../../assets/img/icon/icon_ytz.png")+') no-repeat; background-size: contain'
+                                   ds[i].className = 'ytz';
+                                   ds[i].innerHTML = '<img src="'+require("../../assets/img/icon/icon_ytz.png")+'" alt="" />';
+                                //    ds[i].style = 'background:url('+require("../../assets/img/icon/icon_ytz.png")+') no-repeat; background-size: contain'
                                }
                             } 
                         } else if (v.close_reg_time2) {
@@ -113,15 +141,17 @@ class SetTime extends Component {
                             for (var y=0; y<dx.length; y++) {
                                if (dx[y].getAttribute('data-date') == val.date) {
                                    dx[y].className = 'ytz';
-                                   dx[y].style = 'background:url('+require("../../assets/img/icon/icon_ytz.png")+') no-repeat; background-size: contain'
+                                   dx[y].innerHTML = '<img src="'+require("../../assets/img/icon/icon_ytz.png")+'" alt="" />';
+                                //    dx[y].style = 'background:url('+require("../../assets/img/icon/icon_ytz.png")+') no-repeat; background-size: contain'
                                }
                             } 
                         } else if (v.close_reg_time3) {
                             var dw = that.refs.ws.children
                             for (var m=0; m<dw.length; m++) {
                                if (dw[m].getAttribute('data-date') == val.date) {
-                                   dw[m].className = 'ytz'
-                                   dw[m].style = 'background:url('+require("../../assets/img/icon/icon_ytz.png")+') no-repeat; background-size: contain'
+                                   dw[m].className = 'ytz';
+                                   dw[m].innerHTML = '<img src="'+require("../../assets/img/icon/icon_ytz.png")+'" alt="" />';
+                                //    dw[m].style = 'background:url('+require("../../assets/img/icon/icon_ytz.png")+') no-repeat; background-size: contain'
                                }
                             } 
                         }
@@ -137,18 +167,24 @@ class SetTime extends Component {
         this.initdata();
     }
 
-    clickSetDate (e) { // 点击设定
+    clickSetDate (e) { // 点击设定、选择
         var $this = e.target;
         if ($this.className == 'ysz' || $this.className == 'ytz') {
             return;
         }
-        if ($this.style.background !== '') {
-            $this.style = '';
+        var i = $this.getAttribute('data-date');
+        if(this.state.start_Time) {
+            if(i >= this.state.start_Time && i <= this.state.end_Time) {
+                Toast.fail('您已设置停诊服务');
+                return;
+            }
+         }
+        if ($this.className == 'active') {
+            $this.innerHTML = ''
             $this.className = '';
         } else {
-            
             $this.className = 'active';
-            $this.style = 'background:url('+require("../../assets/img/icon/icon_active.png")+') no-repeat; background-size: contain'
+            $this.innerHTML = '<img src="'+require("../../assets/img/icon/icon_active.png")+'" alt="" />';
         }
 
     }
@@ -269,7 +305,6 @@ class SetTime extends Component {
         var u = navigator.userAgent;
         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;
         var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
-        console.log(isAndroid, isiOS)
         if (isAndroid) {
             window.android.saveComplete();
         }
@@ -283,12 +318,15 @@ class SetTime extends Component {
         return (
             <div className='SetTime'>
                 <p>提示：可多选批量设定，每周日开启下一时间段预约</p>
+                {
+                    this.state.start_Time? (<p className='doc-msg'>您已发布<span>{ this.state.start_Time }-{ this.state.end_Time }</span>的停诊通知，停诊期间内将不能设定预约时段</p> ) : ''
+                }
                 <div className='timer'>
                     <div className='timer-box'>
                         <table className='timer-table'>
                             <thead>
                                 <tr>
-                                    <th></th>
+                                    <th className='th-kong'></th>
                                     {  this.state.Time.map((val,i) => {
                                             return (
                                                 <th style={tds} key={i}>{ val.week }<br/>{ val.date }</th>
