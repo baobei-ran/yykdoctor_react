@@ -1,7 +1,9 @@
 @function ren($px) {
     @return $px / 100+rem;
 }
-
+b {
+    font-weight: normal;
+}
 .cfdetails {
     width: 100%;
     height: 100%;
@@ -176,6 +178,93 @@
             }
             li:first-child {
                 border: 0;
+            }
+        }
+    }
+
+    // 药店的处方样式
+    .docCfdetails-drug {
+        margin-top: rem(20);
+        background-color: #fff;
+        padding: rem(30);
+        > h2 {
+            font-size: rem(28);
+            color: #333;
+            font-weight: 500;
+        }
+        ul {
+            li {
+                margin-top: rem(30);
+                div {
+                   
+                    img {
+                        width: rem(80);
+                        height: rem(80);
+                        display: inline-block;
+                    }
+                    dl {
+                        
+                        margin-left: rem(40);
+                        display: inline-block;
+                        dt {
+                            font-size: rem(24);
+                            color: #333;
+                            b {
+                                float: right;
+                            }
+                        }
+                        dd {
+                            margin-top: rem(18);
+                            color: #808080;
+                            margin-left: 0;
+                            font-size: rem(22);
+                            b {
+                                float: right;
+                            }
+                        }
+                    }
+                }
+                >p {
+                    font-size: rem(22);
+                    color: #808080;
+                    span {
+                        display: inline-block;
+                        line-height: rem(40);
+                    }
+                    span:first-child {
+                        width: 22%;
+                    }
+                    span:last-child {
+                        width: 77%;
+                        vertical-align: top;
+                    }
+                }
+            }
+        }
+    }
+    // 药店药师的样式
+    .doc-Yaoshi {
+        width: 100%;
+        ul {
+            margin-top: rem(20);
+            background-color: #fff;
+            padding:0 rem(30) rem(30);
+            li {
+                padding-top: rem(30);
+                font-size: rem(26);
+                label {
+                    display: inline-block;
+                    width: 22%;
+                    line-height: rem(40);
+                    color: grey;
+                }
+                span {
+                    display: inline-block;
+                    line-height: rem(40);
+                    width: 77%;
+                    vertical-align: top;
+                    color: #333;
+                }
             }
         }
     }

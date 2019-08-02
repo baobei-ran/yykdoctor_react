@@ -9,12 +9,17 @@ class Cfdownload extends React.Component {
             drug: [],
             datalist: [],
             isView: false,
-            base64Pic: ''       // HTML转图片数据
+            base64Pic: '',       // HTML转图片数据
+            type: 0,
         }
     }
     
     componentDidMount () {
-        let { did } = this.props.match.params;
+        let { did, type } = this.props.match.params;
+        console.log(type)
+        this.setState({
+            type: type
+        })
         var _self = this;
         $http.post('/mobile/doch5/user_recipe_detail', {id: did}, function (res) {
             console.log(res)
@@ -35,37 +40,42 @@ class Cfdownload extends React.Component {
                                 {name: '过往病史：',val: res.data.ago?res.data.ago : '无'}]
                 })
                if (_self.state.isView) {
-                    var t = setTimeout(() => {
-                        var doms = _self.refs.htmls;
-                        var domBox =_self.refs.htmlContent;
-                        domBox.style['margin-bottom'] = "-"+domBox.offsetHeight / 2+"px";  // 解决 transform缩放空白占位问题
-                        var width = doms.offsetWidth; //获取dom 宽度
-                        var height = doms.offsetHeight; //获取dom 高度
-                        var canvas = document.createElement("canvas"); //创建一个canvas节点
-                        var scale = window.devicePixelRatio * 1;//获取设备的显示参数
-                        canvas.width = width * scale; //定义canvas 宽度 * 缩放
-                        canvas.height = height * scale; //定义canvas高度 *缩放
-                        canvas.getContext("2d").scale(scale, scale); //获取context,设置scale 
-                        var opts = {
-                            backgroundColor:null,
-                            scale: scale, // 添加的scale 参数
-                            canvas: canvas, //自定义 canvas
-                            logging: false, //日志开关，便于查看html2canvas的内部执行流程
-                            width: width, //dom 原始宽度
-                            height: height,
-                            // allowTaint: true,
-                            // useCORS: true // 【重要】开启跨域配置
-                        };
-
-                        html2canvas(doms, opts).then(function (canvas) {
-                            var imgs = canvas.toDataURL("image/png");
-                            // console.log(imgs)
-                            _self.setState({
-                                base64Pic: imgs
+                    var doms = _self.refs.htmls;
+                    var domBox =_self.refs.htmlContent;
+                    domBox.style['margin-bottom'] = "-"+domBox.offsetHeight / 2+"px";  // 解决 transform缩放空白占位问题
+                    var img = new window.Image();
+                    img.src = $http.baseURL+res.data.seal
+                    console.log(img)
+                    img.onload = function () {
+                        var t = setTimeout(() => {
+                            var width = doms.offsetWidth; //获取dom 宽度
+                            var height = doms.offsetHeight; //获取dom 高度
+                            var canvas = document.createElement("canvas"); //创建一个canvas节点
+                            var scale = window.devicePixelRatio * 1;//获取设备的显示参数
+                            canvas.width = width * scale; //定义canvas 宽度 * 缩放
+                            canvas.height = height * scale; //定义canvas高度 *缩放
+                            canvas.getContext("2d").scale(scale, scale); //获取context,设置scale 
+                            var opts = {
+                                backgroundColor:null,
+                                scale: scale, // 添加的scale 参数
+                                canvas: canvas, //自定义 canvas
+                                logging: false, //日志开关，便于查看html2canvas的内部执行流程
+                                width: width, //dom 原始宽度
+                                height: height,
+                                // allowTaint: true,
+                                // useCORS: true // 【重要】开启跨域配置
+                            };
+    
+                            html2canvas(doms, opts).then(function (canvas) {
+                                var imgs = canvas.toDataURL("image/png");
+                                _self.setState({
+                                    base64Pic: imgs
+                                })
                             })
-                        })
-                        clearTimeout(t)
-                    }, 300)
+                            clearTimeout(t)
+                        }, 300)
+                    }
+                    
                }
             } else {
                 _self.setState({
@@ -96,7 +106,6 @@ class Cfdownload extends React.Component {
     }
 
     downloadPic () {   // 调取安卓 和 ios方法
-        console.log(this.state.base64Pic)
         var u = navigator.userAgent;
         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
         var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
@@ -169,6 +178,14 @@ class Cfdownload extends React.Component {
                                                     <span>处方医师：</span>
                                                     <img src={ $http.baseURL+d.odata.signpic } alt='' />
                                                 </li>
+                                                {
+                                                    d.type == 1 ? ( d.odata.yname_pic? (
+                                                            <li ><span>审核药师：</span><img ref='pharmacist' src={ $http.baseURL+d.odata.yname_pic} alt="" /></li>
+                                                        ) : '') : ''
+                                                    
+                                                    
+                                                }
+                                               
                                             </ul>
                                         </div>
                                     </div>
@@ -178,7 +195,7 @@ class Cfdownload extends React.Component {
                                 <button onClick={ this.downloadPic.bind(this) }>下载处方</button>
                             </div>
                         </React.Fragment>
-                    ) : <div className='cf-dw-msg'>处方不存在</div>
+                    ) : <div className='cf-dw-msg'></div>
                 }
             </div>
         )

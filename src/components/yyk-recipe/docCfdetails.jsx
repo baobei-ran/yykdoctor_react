@@ -1,9 +1,11 @@
 import React from 'react';
 import $http from '../../api';
+import time from '../../assets/img/icon_wsh@2x.png';
 import sucPic from '../../assets/img/icon_shtg@2x.png';
+import errNo from '../../assets/img/icon_shwtg@2x.png';
 import errPic from '../../assets/img/icon_cfygq@2x.png';
 
-class Cfdetails extends React.Component {
+class DocCfdetails extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
@@ -14,19 +16,18 @@ class Cfdetails extends React.Component {
     }
     componentDidMount () {
         this.initdata()
-        // console.log(this.props.match.params)
     }
     initdata () {
         var _self = this;
         var { did } = this.props.match.params;
-        $http.post('/mobile/doch5/user_recipe_detail', { id: did }, function (res) {
+        $http.post('/mobile/Doch5/recipe_look', { id: did }, function (res) {
             console.log(res)
             if (res.code == 1) {
                 _self.setState({
                     odata: res.data,
-                    drug: res.drug,
+                    drug: res.recipe_eat? res.recipe_eat: [],
                     datalist: [{name: '姓名：', val: res.data.name },
-                                {name: '性别：',val: res.data.sex == 1? '男': '女' },
+                                {name: '性别：',val: res.data.sex == 1?  '女':'男' },
                                 {name: '年龄：',val: res.data.age },
                                 {name: '肝功能：',val: res.data.liver? res.data.liver: '正常' },
                                 {name: '肾功能：',val: res.data.kidney?res.data.kidney: '正常' },
@@ -59,7 +60,7 @@ class Cfdetails extends React.Component {
         return year+'-'+zero(month)+'-'+zero(day)+' '+zero(hour)+':'+zero(mins);
     }
     clickUprecipes () {
-        this.props.history.push('/download/'+this.props.match.params.did+'/0')
+        this.props.history.push('/download/'+this.props.match.params.did+'/1')
     }
 
     render () {
@@ -67,7 +68,7 @@ class Cfdetails extends React.Component {
         return (
             <div className='cfdetails'>
                 {
-                    d.odata.drug_type == 2? < TitleMsg data={ d.odata } /> : d.odata.drug_type == 1? < TitleMsgs2 data={ d.odata } /> : ''
+                    < TitleMsg data={ d.odata } />
                 }
                 <div className='cfdetails-msg'>
                     <div className='cf-pic'>
@@ -106,29 +107,62 @@ class Cfdetails extends React.Component {
                         <li><span>开具医生</span><span>{ d.odata.true_name }</span></li>
                     </ul>
                     <ul>
-                        <li><span>患者信息</span><span>{ d.odata.name }<b>|</b>{ d.odata.sex== 1? '男': '女' }<b>|</b>{ d.odata.age }</span></li>
-                        {/* <li><span>患者手机</span><span></span></li> */}
-                        <li><span>患者主诉</span><span>{ d.odata.opinion }</span></li>
+                        <li><span>患者信息</span><span>{ d.odata.name }<b>|</b>{ d.odata.sex== 1? '女':'男' }<b>|</b>{ d.odata.age }</span></li>
+                        <li><span>患者手机</span><span>{ d.odata.phone }</span></li>
+                        <li><span>患者主诉</span><span>{ d.odata.disease }</span></li>
                         <li><span>诊断结果</span><span>{ d.odata.result }</span></li>
+                        <li><span>处理意见</span><span>{ d.odata.opinion }</span></li>
                     </ul>
                 </div>
-                <div className='cfdetails-drug'>
-                    <h2>处方的药品</h2>
+                <div className='docCfdetails-drug'>
+                    <h2>{ d.odata.hospital_name }</h2>
                     <ul>
-                        {
+                        {  d.drug.length > 0 ? 
                             d.drug.map((val, j) => {
                                 return (
-                                    <li key={j}>
-                                        <dl className='flex flex-sb'>
-                                            <dt>{ val.name }<span>{ val.gg?"("+val.gg+")": '' }</span></dt>
-                                            <dd>x{ val.num }</dd>
-                                        </dl>
+                                    <li key={j} >
+                                        <div className='flex flex-y'>
+                                            <img src={ $http.baseURL+val.pic } alt=""/>
+                                            <dl className='flex-1'>
+                                                <dt><span>{ val.name }{ val.gg?"("+val.gg+")": '' }</span>
+                                                    <b>
+                                                        { val.money>0? '￥'+val.money: ''  }
+                                                    </b>
+                                                </dt>
+                                                <dd>{ val.cname } <b>x{ val.num }</b></dd>
+                                            </dl>
+                                        </div>
                                         <p><span>用法用量：</span><span>{ val.usage }</span></p>
                                     </li>
                                 )
-                            })
+                            }) : ''
                         }
                     </ul>
+                </div>
+                <div className='doc-Yaoshi'>
+                    {
+                        d.odata.flag > 0? (
+                            <ul>
+                                <li>
+                                    <label>审核药师：</label>
+                                    <span>{ d.odata.yname }</span>
+                                </li>
+                                <li>
+                                    <label>审核时间：</label>
+                                    <span>{  this.date_format(d.odata.flag_time)  }</span>
+                                </li>
+                                {
+                                    d.odata.flag_text? (
+                                        <li>
+                                            <label>审核说明：</label> 
+                                            <span>{ d.odata.flag_text }</span>
+                                        </li>
+                                    ) : ''
+                                }
+                                
+                            </ul>
+                        ) : ''
+                    }
                 </div>
             </div>
         )
@@ -141,41 +175,26 @@ function TitleMsg (props) {
     return (
         <div className='cfdetails-title'>
             {
-                data.status == 1? (
+                data.flag == 0? (
                     <div className='cfdetails-checks cfdetails-blue'>
-                        <img src={ sucPic } alt="" /><span>处方已开具</span>
+                        <img src={ time } alt="" /><span>处方未审核</span>
                     </div>
-                 ) : (
-                    <div className='cfdetails-checks cfdetails-orange'>
-                        <img src={ errPic } alt="" /><span>处方已过期</span>
-                    </div>
-                 )
-            }
-        </div>
-    )
-}
-
-function TitleMsgs2 (props) {
-    let { data } = props;
-    return (
-        <div className='cfdetails-title'>
-            {
-                data.drug_autdit == 0? (
-                    <div className='cfdetails-checks cfdetails-blue'>
-                        <img src={ sucPic } alt="" /><span>处方未审核</span>
-                    </div>
-                 ) : data.drug_autdit == 1? (
+                ) : data.flag == 1? (
                     <div className='cfdetails-checks cfdetails-blue'>
                         <img src={ sucPic } alt="" /><span>药师审核通过</span>
                     </div>
-                 ) : (
+                 ) : data.flag == 2?(
                     <div className='cfdetails-checks cfdetails-orange'>
-                        <img src={ errPic } alt="" /><span>药师审核未通过</span>
+                        <img src={ errNo } alt="" /><span>药师审核未通过</span>
                     </div>
-                 )
+                 ) : data.flag == 3? (
+                    <div className='cfdetails-checks cfdetails-orange'>
+                        <img src={ errPic } alt="" /><span>处方已过期</span>
+                    </div>
+                 ) : ''
             }
         </div>
     )
 }
 
-export default Cfdetails;
+export default DocCfdetails;
