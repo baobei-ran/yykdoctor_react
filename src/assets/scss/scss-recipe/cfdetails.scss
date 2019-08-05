@@ -74,7 +74,7 @@ b {
                     }
                 }
                 .cf-userInfo {
-                    ul {
+                   > ul {
                         padding: 0 rem(30);
                         li {
                             width: 33%;
@@ -83,8 +83,23 @@ b {
                         }
                     }
                     > p {
+                        width: 100%;
                         padding-left: rem(30);
                         margin-top: rem(30);
+                    }
+                    .result {
+                        span {
+                            line-height: rem(40);
+                        }
+                        span:first-child {
+                            display: inline-block;
+                            width: 13%;
+                        }
+                        span:last-child {
+                            display: inline-block;
+                            width: 80%;
+                            vertical-align: top;
+                        }
                     }
                 }
             }
@@ -130,7 +145,7 @@ b {
                 span:last-child {
                     width: 79%;
                     color: #333;
-                    
+                    vertical-align: top;
                 }
             }
         }

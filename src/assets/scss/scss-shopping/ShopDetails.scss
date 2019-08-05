@@ -47,48 +47,7 @@
                 color: #A9A9A9;
             }
         }
-        .detail_con {
-            width: 100%;
-            background-color: #fff;
-            margin-top: rem(20);
-            padding: rem(20) 0;
-            >ul {
-                li {
-                    font-size: rem(28);
-                    width: 100%;
-                    line-height: rem(40);
-                    padding: 0 rem(22);
-                    margin: rem(36) 0;
-                    overflow: hidden;
-                    span {
-                        float: left;
-                    }
-                    span:first-child {
-                        color: #808080;
-                        display: block;
-                        width: 28%;
-                    }
-                    span:last-child {
-                        color: #333;
-                        display: block;
-                        width: 70%;
-                    }
-                }
-                .border_blue {
-                    padding: 0;
-                    span:first-child {
-                        padding-left: 0.2rem;
-                        border-left: 3px solid #5189F6;
-                    }
-                    span:last-child {
-                        padding-left: rem(10);
-                    }
-                }
-            }
-            > ul:first-child {
-                border-bottom: 1px solid rgba(224,224,224,1);
-            }
-        }
+        
         .cont_img {
             width: 100%;
             ul {
@@ -116,4 +75,114 @@
             margin: 0 auto;
         }
     }
+
+
+
+.detail_con {
+    width: 100%;
+    background-color: #fff;
+    margin-top: rem(20);
+    padding: rem(20) 0;
+    >ul {
+        li {
+            font-size: rem(28);
+            width: 100%;
+            line-height: rem(40);
+            padding: 0 rem(22);
+            margin: rem(36) 0;
+            overflow: hidden;
+            span {
+                float: left;
+            }
+            span:first-child {
+                color: #808080;
+                display: block;
+                width: 25%;
+            }
+            span:last-child {
+                color: #333;
+                display: block;
+                width: 74%;
+            }
+        }
+        .border_blue {
+            padding: 0;
+            span:first-child {
+                padding-left: 0.2rem;
+                border-left: 3px solid #5189F6;
+            }
+            span:last-child {
+                padding-left: rem(10);
+            }
+        }
+    }
+    > ul:first-child {
+        border-bottom: 1px solid rgba(224,224,224,1);
+    }
+}
+
+
+
+.newshop-info {
+    width: 100%;
+    padding: rem(30);
+    font-size: 0.22rem;
+    font-weight: 550;
+    overflow: hidden;
+    background-color: #fff;
+    > h4 {
+        font-size: rem(28);
+        color: #333;
+    }
+    .shop-money {
+        margin-top: rem(30);
+        width: 100%;
+        .color-red {
+            color: #E9541F;
+            span {
+                font-size: rem(32);
+            }
+        }
+        .nums {
+            float: right;
+            span {
+                display: inline-block;
+                height: rem(48);
+                border-radius: 100%;
+                text-align: center;
+                line-height: rem(46);
+                img {
+                    width: rem(48);
+                    height: rem(48);
+                    display: inline-block;
+                    vertical-align: top;
+                }
+            }
+            
+            span:nth-child(2) {
+                min-width: rem(48);
+                font-size: rem(24);
+                font-weight: normal;
+                color: #333;
+                
+            }
+        }
+    }
+   
+    
+}
+
+
+.NewShop {
+    width: 100%;
+    margin-bottom: rem(20);
+    font-size: rem(28);
+    &-banner {
+        width: 100%;
+        img {
+            width: 100%;
+        }
+    }
+}
+
 }

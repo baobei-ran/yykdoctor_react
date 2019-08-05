@@ -87,7 +87,7 @@ function Shop (props) {
             </div>    
             {/*  1 药品 2 保健品 3 医疗器械  */}
             {   datalist.type == 1? (
-                <div className="detail_con" v-if='? true:false'>        
+                <div className="detail_con" >        
                     <ul>
                         <li className='border_blue'><span>商品类型：</span><span>{ datalist.recipe == 0? '非处方':'处方' }</span></li>
                         <li><span>商品剂型：</span><span>{ datalist.type2 }</span></li>

@@ -1,6 +1,7 @@
 import React from 'react';
 import $http from '../../api/index'
 import html2canvas from 'html2canvas';
+import { Toast } from 'antd-mobile';
 class Cfdownload extends React.Component {
     constructor(props) {
         super(props);
@@ -11,7 +12,9 @@ class Cfdownload extends React.Component {
             isView: false,
             base64Pic: '',       // HTML转图片数据
             type: 0,
+            viewMsg: '',
         }
+        Toast.loading('', 0);
     }
     
     componentDidMount () {
@@ -23,10 +26,8 @@ class Cfdownload extends React.Component {
         var _self = this;
         $http.post('/mobile/doch5/user_recipe_detail', {id: did}, function (res) {
             console.log(res)
+            Toast.hide()
             if (res.code == 1) {
-                _self.setState({
-                    isView: true
-                })
                 _self.setState({
                     odata: res.data,
                     drug: res.drug,
@@ -37,10 +38,10 @@ class Cfdownload extends React.Component {
                                 {name: '肾功能：',val: res.data.kidney?res.data.kidney: '正常' },
                                 {name: '备孕情况：',val: res.data.yun?res.data.yun:'无' },
                                 {name: '过敏史：',val: res.data.allergy? res.data.allergy: '无' },
-                                {name: '过往病史：',val: res.data.ago?res.data.ago : '无'}]
+                                {name: '过往病史：',val: res.data.ago?res.data.ago : '无'}],
+                    isView: true
                 })
                if (_self.state.isView) {
-                    var doms = _self.refs.htmls;
                     var domBox =_self.refs.htmlContent;
                     domBox.style['margin-bottom'] = "-"+domBox.offsetHeight / 2+"px";  // 解决 transform缩放空白占位问题
                     var img = new window.Image();
@@ -48,6 +49,7 @@ class Cfdownload extends React.Component {
                     console.log(img)
                     img.onload = function () {
                         var t = setTimeout(() => {
+                            var doms = _self.refs.htmls;
                             var width = doms.offsetWidth; //获取dom 宽度
                             var height = doms.offsetHeight; //获取dom 高度
                             var canvas = document.createElement("canvas"); //创建一个canvas节点
@@ -65,7 +67,6 @@ class Cfdownload extends React.Component {
                                 // allowTaint: true,
                                 // useCORS: true // 【重要】开启跨域配置
                             };
-    
                             html2canvas(doms, opts).then(function (canvas) {
                                 var imgs = canvas.toDataURL("image/png");
                                 _self.setState({
@@ -79,7 +80,8 @@ class Cfdownload extends React.Component {
                }
             } else {
                 _self.setState({
-                    isView: false
+                    isView: false,
+                    viewMsg: '该处方单不存在或已销毁'
                 })
             }
         })
@@ -194,8 +196,8 @@ class Cfdownload extends React.Component {
                             <div className='Cfdownload-btn'>
                                 <button onClick={ this.downloadPic.bind(this) }>下载处方</button>
                             </div>
-                        </React.Fragment>
-                    ) : <div className='cf-dw-msg'></div>
+                        </React.Fragment> 
+                    ) : <div className='cf-dw-msg'>{ d.viewMsg }</div>
                 }
             </div>
         )

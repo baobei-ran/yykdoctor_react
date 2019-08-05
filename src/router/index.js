@@ -14,12 +14,16 @@ let Cfdownload = Load(() => import('../components/yyk-recipe/Cfdownload'));     
 const DocCfdetails = React.lazy(() => import('../components/yyk-recipe/docCfdetails')); // 药店处方
 
 let ShopDetails = Load(() => import( /* webpackChunkName: "shop" */ '../components/yyk-shopping/ShopDetails')); // 商品详情
+const NewShopDetails = React.lazy(() => import(/* webpackChunkName: "shop" */ '../components/yyk-shopping/newShopDetails')); // 可加减操作的商品详情页
 
-
+const ReactLoading = {
+    fontSize: '14px',
+    color: '#666'
+}
 function ReactRouter () {
         return (
             <Router>
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<div style={ ReactLoading } >Loading...</div>}>
                     <Switch>
                         <Route exact path="/SetTime/:did" exact component={ SetTime } />
                         <Route path="/Details/:did/:aid" component={Details} />
@@ -28,7 +32,7 @@ function ReactRouter () {
                         <Route path="/download/:did/:type"  component={Cfdownload} />
                         <Route path="/shopdetails/:did" component={ShopDetails} />
                         <Route path="/doctordetail/:did" component={ DocCfdetails } />
-                        {/*<Route path="/hooksUseState" component={HooksUseState} /> */}
+                        <Route path="/newshopdetails/:did/:tag/:int" component={ NewShopDetails } />
                     </Switch>
                 </Suspense>
             </Router>

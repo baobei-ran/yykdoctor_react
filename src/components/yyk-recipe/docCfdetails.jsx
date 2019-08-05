@@ -23,6 +23,10 @@ class DocCfdetails extends React.Component {
         $http.post('/mobile/Doch5/recipe_look', { id: did }, function (res) {
             console.log(res)
             if (res.code == 1) {
+                res.data.result = '还是--技术大纯净水--的减肥茶短时间内加上你的'
+                res.data.result = res.data.result.replace(/--/g, '<br />');
+                res.data.opinion = res.data.opinion.replace(/--/g, '<br />');
+                console.log(res.data)
                 _self.setState({
                     odata: res.data,
                     drug: res.recipe_eat? res.recipe_eat: [],
@@ -94,7 +98,7 @@ class DocCfdetails extends React.Component {
                                         })
                                     }
                                 </ul>
-                                <p><span>诊断结果：</span><span>{ d.odata.result }</span></p>
+                                <p className='result'><span>诊断结果：</span><span dangerouslySetInnerHTML={{ __html: d.odata.result }}></span></p>
                             </div>
                         </div>
                         <span className='cf-btn' onClick={ this.clickUprecipes.bind(this) }>查看完整处方</span>
@@ -110,8 +114,8 @@ class DocCfdetails extends React.Component {
                         <li><span>患者信息</span><span>{ d.odata.name }<b>|</b>{ d.odata.sex== 1? '女':'男' }<b>|</b>{ d.odata.age }</span></li>
                         <li><span>患者手机</span><span>{ d.odata.phone }</span></li>
                         <li><span>患者主诉</span><span>{ d.odata.disease }</span></li>
-                        <li><span>诊断结果</span><span>{ d.odata.result }</span></li>
-                        <li><span>处理意见</span><span>{ d.odata.opinion }</span></li>
+                        <li><span>诊断结果</span><span dangerouslySetInnerHTML={{ __html: d.odata.result }}></span></li>
+                        <li><span>处理意见</span><span dangerouslySetInnerHTML={{ __html: d.odata.opinion }}></span></li>
                     </ul>
                 </div>
                 <div className='docCfdetails-drug'>
