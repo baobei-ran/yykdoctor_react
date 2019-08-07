@@ -9,7 +9,7 @@ let SetTime = Load(() => import('../components/yyk-vs1/SetTime'));
 let Details = Load(() => import('../components/yyk-vs1/Details'));
 let Agreement = Load(() => import('../components/yyk-vs1/Agreement'));
 
-let Cfdetails = Load(() => import('../components/yyk-recipe/cfdetails'));               // 患者处方
+let Cfdetails = Load(() => import( /* webpackChunkName: "cf" */ '../components/yyk-recipe/cfdetails'));               // 患者处方
 let Cfdownload = Load(() => import('../components/yyk-recipe/Cfdownload'));             // 处方单
 const DocCfdetails = React.lazy(() => import('../components/yyk-recipe/docCfdetails')); // 药店处方
 
