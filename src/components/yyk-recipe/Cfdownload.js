@@ -59,7 +59,7 @@ class Cfdownload extends React.Component {
                             canvas.getContext("2d").scale(scale, scale); //获取context,设置scale 
                             var opts = {
                                 backgroundColor:null,
-                                scale: scale, // 添加的scale 参数
+                                scale: scale?scale:2, // 添加的scale 参数
                                 canvas: canvas, //自定义 canvas
                                 logging: false, //日志开关，便于查看html2canvas的内部执行流程
                                 width: width, //dom 原始宽度
