@@ -11,7 +11,7 @@ let Agreement = Load(() => import('../components/yyk-vs1/Agreement'));
 
 let Cfdetails = Load(() => import( /* webpackChunkName: "cf" */ '../components/yyk-recipe/cfdetails'));               // 患者处方
 let Cfdownload = Load(() => import('../components/yyk-recipe/Cfdownload'));             // 处方单
-const DocCfdetails = React.lazy(() => import('../components/yyk-recipe/docCfdetails')); // 药店处方
+const DocCfdetails = React.lazy(() => import(/* webpackChunkName: "cf" */ '../components/yyk-recipe/docCfdetails')); // 药店处方
 
 let ShopDetails = Load(() => import( /* webpackChunkName: "shop" */ '../components/yyk-shopping/ShopDetails')); // 商品详情
 const NewShopDetails = React.lazy(() => import(/* webpackChunkName: "shop" */ '../components/yyk-shopping/newShopDetails')); // 可加减操作的商品详情页

@@ -19,8 +19,11 @@ class ShopDetails extends React.Component {
             newDataobj: {},
             numVal: 0
         }
+        this.add = this.add.bind(this)
     }
-
+    componentWillMount () {
+        window.add = this.add
+    }
     componentDidMount () {
         let { tag, int } = this.props.match.params;
         this.setState({
@@ -31,7 +34,6 @@ class ShopDetails extends React.Component {
         } else {
             this.initdata()
         }
-        window.add = this.add
     }
     initdata () {
         var _this = this;
@@ -83,8 +85,10 @@ class ShopDetails extends React.Component {
         })
     }
     add (num) { // 交互获取数量
+        let { numVal } = this.state
+        numVal = num
         this.setState({
-            numVal: num
+            numVal: numVal
         })
     }
     handleminus () {  // 减
@@ -99,16 +103,16 @@ class ShopDetails extends React.Component {
         this.handleClick('no', numVal)
     }
     handleadd () {  // 加
-        var add = this.state.numVal
-        if (this.state.newDataobj.stock && add >= this.state.newDataobj.stock) {
+        var addn = this.state.numVal
+        if (this.state.newDataobj.stock && addn >= this.state.newDataobj.stock) {
             Toast.info('此药品库存不足!', 2)
             return false;
         }
-        add ++
+        addn ++
         this.setState({
-            numVal: add
+            numVal: addn
         })
-        this.handleClick('yes', add)
+        this.handleClick('yes', addn)
     }
     handleClick (type, int) { // 和 ios 和 android 交互
         var u = navigator.userAgent;
@@ -133,7 +137,7 @@ class ShopDetails extends React.Component {
         return (
             <div className='shopDetails'>
                 {
-                    this.state.isView? <Shop data={ this.state } ems={ this.handleminus.bind(this) } add={ this.handleadd.bind(this) } /> : this.state.newisView ? < NewShop newData={ this.state } ems={ this.handleminus.bind(this) } add={ this.handleadd.bind(this) } /> : this.state.flag? ( <div className='fail-msg'><img src={ MsgIcon } alt="" />商品不存在或者已被下架</div> ) : ""
+                    this.state.isView? <Shop data={ this.state } ems={ this.handleminus.bind(this) } adds={ this.handleadd.bind(this) } /> : this.state.newisView ? < NewShop newData={ this.state } ems={ this.handleminus.bind(this) } adds={ this.handleadd.bind(this) } /> : this.state.flag? ( <div className='fail-msg'><img src={ MsgIcon } alt="" />商品不存在或者已被下架</div> ) : ""
                 }
             </div>
         )
@@ -149,7 +153,7 @@ class Shop extends React.Component {
         this.props.ems()
     }
     addFn () {
-        this.props.add()
+        this.props.adds()
     }
     render () {
         let { datalist, numVal } = this.props.data;
@@ -257,7 +261,7 @@ class NewShop extends React.Component {
         this.props.ems()
     }
     addFn () { // 加
-        this.props.add()
+        this.props.adds()
     }
     render () {
         let { newDataobj, numVal } = this.props.newData

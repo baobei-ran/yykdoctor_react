@@ -203,6 +203,11 @@ class Cfdownload extends React.Component {
         )
     }
 
+
+    componentWillUnmount(){ // 销毁
+	    Toast.hide()
+	}
+
 }
 
 export default Cfdownload;
