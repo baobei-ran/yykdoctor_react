@@ -10,7 +10,7 @@ let Details = Load(() => import('../components/yyk-vs1/Details'));
 let Agreement = Load(() => import('../components/yyk-vs1/Agreement'));
 
 let Cfdetails = Load(() => import( /* webpackChunkName: "cf" */ '../components/yyk-recipe/cfdetails'));               // 患者处方
-let Cfdownload = Load(() => import('../components/yyk-recipe/Cfdownload'));             // 处方单
+let Cfdownload = Load(() => import(/* webpackChunkName: "cf" */ '../components/yyk-recipe/Cfdownload'));             // 处方单
 const DocCfdetails = React.lazy(() => import(/* webpackChunkName: "cf" */ '../components/yyk-recipe/docCfdetails')); // 药店处方
 
 let ShopDetails = Load(() => import( /* webpackChunkName: "shop" */ '../components/yyk-shopping/ShopDetails')); // 商品详情

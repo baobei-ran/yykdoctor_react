@@ -2,10 +2,9 @@ import React from 'react';
 import $http from '../../api';
 import sucPic from '../../assets/img/icon_shtg@2x.png';
 import errPic from '../../assets/img/icon_cfygq@2x.png';
-
 class Cfdetails extends React.Component {
     constructor (props) {
-        super(props)
+        super(props);
         this.state = {
             odata: '',
             drug: [],
@@ -14,7 +13,6 @@ class Cfdetails extends React.Component {
     }
     componentDidMount () {
         this.initdata()
-        // console.log(this.props.match.params)
     }
     initdata () {
         var _self = this;
