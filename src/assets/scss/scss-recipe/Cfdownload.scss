@@ -18,6 +18,7 @@
         .cf-box {
             width: 200%;
             -webkit-transform-origin:left top;
+            transform-origin:left top;
             -webkit-transform: scale(0.5);
             transform: scale(0.5);
             padding: rem(30) 0;
@@ -47,6 +48,17 @@
                 > p {
                     padding-left: rem(30);
                     margin-top: rem(30);
+                    span {
+                        display: inline-block;
+                        line-height: rem(44);
+                    }
+                    span:first-child {
+                        width: rem(180);
+                    }
+                    span:last-child {
+                        width: 78%;
+                        vertical-align: top;
+                    }
                 }
             }
             .cf-drug {

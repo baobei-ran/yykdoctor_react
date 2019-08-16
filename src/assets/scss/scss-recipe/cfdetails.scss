@@ -86,6 +86,17 @@ b {
                         width: 100%;
                         padding-left: rem(30);
                         margin-top: rem(30);
+                        span {
+                            display: inline-block;
+                            line-height: rem(44);
+                        }
+                        span:first-child {
+                            width: rem(160);
+                        }
+                        span:last-child {
+                            width: 78%;
+                            vertical-align: top;
+                        }
                     }
                     .result {
                         span {
