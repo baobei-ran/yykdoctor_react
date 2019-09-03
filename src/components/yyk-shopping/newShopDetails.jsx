@@ -166,7 +166,7 @@ class Shop extends React.Component {
                                 this.props.data.swiperPic.map((val, i) => {
                                     return (
                                         <div className="swiper-slide" key={i}>
-                                            <img src={ $http.baseURL+val.img } alt="" />
+                                            <img src={ val.img?$http.baseURL+val.img:'' } alt="" />
                                         </div>
                                     )
                                 })
