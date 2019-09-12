@@ -15,10 +15,16 @@ const DocCfdetails = React.lazy(() => import(/* webpackChunkName: "cf" */ '../co
 
 let ShopDetails = Load(() => import( /* webpackChunkName: "shop" */ '../components/yyk-shopping/ShopDetails')); // 商品详情
 const NewShopDetails = React.lazy(() => import(/* webpackChunkName: "shop" */ '../components/yyk-shopping/newShopDetails')); // 可加减操作的商品详情页
+const ExchangeDetail = React.lazy(() => import('../components/yyk-lv/exchangeDetail.jsx'));
+const RuleIntroduction = React.lazy(() => import('../components/yyk-lv/ruleIntroduction.jsx'));
 
+const Lazy = React.lazy(() => import('../components/lazy/lazyloading'));
 const ReactLoading = {
-    fontSize: '14px',
-    color: '#666'
+    fontSize: '16px',
+    color: '#666',
+    width: '100%',
+    textAlign: 'center',
+    marginTop: '30%'
 }
 function ReactRouter () {
         return (
@@ -32,7 +38,10 @@ function ReactRouter () {
                         <Route path="/download/:did/:type"  component={Cfdownload} />
                         <Route path="/shopdetails/:did" component={ShopDetails} />
                         <Route path="/doctordetail/:did" component={ DocCfdetails } />
-                        <Route path="/newshopdetails/:did/:tag/:int" component={ NewShopDetails } />
+                        <Route path="/newshopdetails/:did/:tag/:int" component={NewShopDetails} />
+                        <Route path="/exchangeDetail/:id" component={ExchangeDetail} />
+                        <Route path="/ruleIntroduction/:tag" component={RuleIntroduction} />
+                        <Route path="/lazy" component={Lazy} />
                     </Switch>
                 </Suspense>
             </Router>
