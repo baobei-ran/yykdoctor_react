@@ -13,20 +13,28 @@ class Cfdownload extends React.Component {
             base64Pic: '',       // HTML转图片数据
             type: 0,
             viewMsg: '',
+            is_loading: true,
         }
         Toast.loading('', 0);
     }
     
     componentDidMount () {
         let { did, type } = this.props.match.params;
-        console.log(type)
+        if (type == 1) {
+            this.docCheckCf(did)
+        } else {
+            this.userCheckCf(did)
+        }
         this.setState({
             type: type
         })
+        
+    }
+
+    userCheckCf(id) {
         var _self = this;
-        $http.post('/mobile/doch5/user_recipe_detail', {id: did}, function (res) {
+        $http.post('/mobile/doch5/user_recipe_detail', {id: id}, function (res) {
             console.log(res)
-            Toast.hide()
             if (res.code == 1) {
                 _self.setState({
                     odata: res.data,
@@ -41,50 +49,85 @@ class Cfdownload extends React.Component {
                                 {name: '过往病史：',val: res.data.ago?res.data.ago : '无'}],
                     isView: true
                 })
-               if (_self.state.isView) {
-                    var domBox =_self.refs.htmlContent;
-                    domBox.style['margin-bottom'] = "-"+domBox.offsetHeight / 2+"px";  // 解决 transform缩放空白占位问题
-                    var img = new window.Image();
-                    img.src = $http.baseURL+res.data.seal
-                    console.log(img)
-                    img.onload = function () {
-                        var t = setTimeout(() => {
-                            var doms = _self.refs.htmls;
-                            var width = doms.offsetWidth; //获取dom 宽度
-                            var height = doms.offsetHeight; //获取dom 高度
-                            var canvas = document.createElement("canvas"); //创建一个canvas节点
-                            var scale = window.devicePixelRatio * 1;//获取设备的显示参数
-                            canvas.width = width * scale; //定义canvas 宽度 * 缩放
-                            canvas.height = height * scale; //定义canvas高度 *缩放
-                            canvas.getContext("2d").scale(scale, scale); //获取context,设置scale 
-                            var opts = {
-                                backgroundColor:null,
-                                scale: scale?scale:2, // 添加的scale 参数
-                                canvas: canvas, //自定义 canvas
-                                logging: false, //日志开关，便于查看html2canvas的内部执行流程
-                                width: width, //dom 原始宽度
-                                height: height,
-                                // allowTaint: true,
-                                // useCORS: true // 【重要】开启跨域配置
-                            };
-                            html2canvas(doms, opts).then(function (canvas) {
-                                var imgs = canvas.toDataURL("image/png");
-                                _self.setState({
-                                    base64Pic: imgs
-                                })
-                            })
-                            clearTimeout(t)
-                        }, 300)
-                    }
-                    
-               }
+               _self.loadingCanvas()
             } else {
+                Toast.hide()
                 _self.setState({
                     isView: false,
-                    viewMsg: '该处方单不存在或已销毁'
+                    viewMsg: '该处方单不存在或已销毁',
+                    is_loading: false
                 })
             }
         })
+    }
+
+    docCheckCf(id) {
+        var _self = this;
+        $http.post('/mobile/Doch5/recipe_look', { id: id }, function (res) {
+            console.log(res)
+            if (res.code == 1) {
+                _self.setState({
+                    odata: res.data,
+                    drug: res.recipe_eat,
+                    datalist: [{name: '姓名：', val: res.data.name },
+                                {name: '性别：',val: res.data.sex == 1? '男': '女' },
+                                {name: '年龄：',val: res.data.age },
+                                {name: '肝功能：',val: res.data.liver? res.data.liver: '正常' },
+                                {name: '肾功能：',val: res.data.kidney?res.data.kidney: '正常' },
+                                {name: '备孕情况：',val: res.data.yun?res.data.yun:'无' },
+                                {name: '过敏史：',val: res.data.allergy? res.data.allergy: '无' },
+                                {name: '过往病史：',val: res.data.ago?res.data.ago : '无'}],
+                    isView: true
+                })
+                _self.loadingCanvas()
+            } else {
+                Toast.hide()
+                _self.setState({
+                    isView: false,
+                    viewMsg: '该处方单不存在或已销毁',
+                    is_loading: false
+                })
+            }
+        })
+    }
+    loadingCanvas() {
+        var _self = this;
+        if (_self.state.isView) {
+            var t = setTimeout(() => {
+                var doms = _self.refs.htmls;
+                console.log(doms.offsetHeight)
+                var width = doms.offsetWidth;       // 获取dom 宽度
+                var height = doms.offsetHeight/2;   // 获取dom 高度，去除一半 transform 占位空白页面
+                var canvas = document.createElement("canvas"); //创建一个canvas节点
+                var scale = window.devicePixelRatio * 1;//获取设备的显示参数
+                canvas.width = width * scale; //定义canvas 宽度 * 缩放
+                canvas.height = height * scale; //定义canvas高度 *缩放
+                canvas.getContext("2d").scale(scale, scale); //获取context,设置scale 
+                var opts = {
+                    backgroundColor:null,
+                    scale: scale?scale:2, // 添加的scale 参数
+                    canvas: canvas, //自定义 canvas
+                    logging: false, //日志开关，便于查看html2canvas的内部执行流程
+                    width: width, //dom 原始宽度
+                    height: height,
+                    // allowTaint: true,
+                    // useCORS: true // 开启跨域配置
+                };
+                html2canvas(doms, opts).then(function (canvas) {
+                    var imgs = canvas.toDataURL("image/png");
+                    var dombox = _self.refs.picBox;
+                    dombox.classList.add('flex');
+                    dombox.classList.add('flex-y');
+                    dombox.innerHTML = '<img style="width: 100%;" src="'+imgs+'" alt="" />'
+                    _self.setState({
+                        base64Pic: imgs,
+                        is_loading: false
+                    })
+                    Toast.hide()
+                })
+                clearTimeout(t)
+            }, 3000)
+       }
     }
 
     time_date (n) { // 补零
@@ -123,12 +166,15 @@ class Cfdownload extends React.Component {
         var d = this.state;
         return (
             <div className='Cfdownload'>
+                <React.Fragment>
+                    { d.is_loading? <div className='isLoading'></div> : '' }
+                </React.Fragment>
                 {
                     d.isView ? (
                         <React.Fragment>
-                            <div className='Cfdownload-pic flex flex-y'>
+                            <div className='Cfdownload-pic' ref='picBox'>
                                 <div className='pic-box' ref='htmls'>
-                                    <div className='cf-box' ref='htmlContent' >
+                                    <div className='cf-box' >
                                         <div className='cf-head'>
                                             <ul className='flex flex-sa'>
                                                 <li>
@@ -170,7 +216,7 @@ class Cfdownload extends React.Component {
                                                 })
                                             }
                                             <div className='zhang'>
-                                                <img src={ $http.baseURL+d.odata.seal } alt='' />
+                                                <img src={ d.odata.seal?$http.baseURL+d.odata.seal:'' } alt='' />
                                             </div>
                                         </div>
                                         <p className='cf-msg'>( 一下空白，手写无效 )</p>
@@ -178,7 +224,7 @@ class Cfdownload extends React.Component {
                                             <ul>
                                                 <li>
                                                     <span>处方医师：</span>
-                                                    <img src={ $http.baseURL+d.odata.signpic } alt='' />
+                                                    <img src={ d.odata.signpic?$http.baseURL+d.odata.signpic:'' } alt='' />
                                                 </li>
                                                 {
                                                     d.type == 1 ? ( d.odata.yname_pic? (

@@ -1,10 +1,8 @@
 import React from 'react';
 import $http from '../../api';
 import Swiper from 'swiper/dist/js/swiper.min.js'
-import 'swiper/dist/css/swiper.min.css';
-import LazyLoad from 'react-lazyload';
-
-
+// import 'swiper/dist/css/swiper.min.css';
+// import LazyLoad from 'react-lazyload';
 
 class ExchangeDetail extends React.Component {
     constructor() {

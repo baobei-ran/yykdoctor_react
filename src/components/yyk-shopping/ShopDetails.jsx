@@ -2,7 +2,7 @@ import React from 'react';
 import $http from '../../api';
 import MsgIcon from "../../assets/img/icon/default.png";
 import Swiper from 'swiper/dist/js/swiper.min.js'
-import 'swiper/dist/css/swiper.min.css';
+// import 'swiper/dist/css/swiper.min.css';
 class ShopDetails extends React.Component {
     constructor(props) {
         super(props)
