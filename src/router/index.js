@@ -15,7 +15,7 @@ const DocCfdetails = React.lazy(() => import(/* webpackChunkName: "cf" */ '../co
 
 let ShopDetails = Load(() => import( /* webpackChunkName: "shop" */ '../components/yyk-shopping/ShopDetails')); // 商品详情
 const NewShopDetails = React.lazy(() => import(/* webpackChunkName: "shop" */ '../components/yyk-shopping/newShopDetails')); // 可加减操作的商品详情页
-const ExchangeDetail = React.lazy(() => import('../components/yyk-lv/exchangeDetail.jsx'));
+const ExchangeDetail = Load(() => import(/* webpackChunkName: "exchg" */ '../components/yyk-lv/exchangeDetail.jsx'));
 const RuleIntroduction = React.lazy(() => import('../components/yyk-lv/ruleIntroduction.jsx'));
 
 const Lazy = React.lazy(() => import('../components/lazy/lazyloading'));

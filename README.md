@@ -1,3 +1,13 @@
+
+在 node_modules 目录中的 react-scripts目录下 config 文件下 webpack.config.js 中配置
+
+在 output 后面加入以下：
+
+    externals: {   // 打包时，不打入进去， 使用cdn引入
+      'html2canvas': 'html2canvas',
+      'swiper': 'Swiper',
+    },
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
