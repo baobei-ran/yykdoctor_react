@@ -22,7 +22,7 @@ for (let i=0; i<4; i++) { // 添加4张待加载的图片
   refs.push(ref) // 放入 ref 数组
   images.push( // 新建 img jsx 放入 images （图片地址不放入 src 而是放入 自定义属性 data-src）
       <div style={css.imageBox} key={i}>
-        <img ref={ ref } data-src={`https://pschina.github.io/src/assets/images/${i}.jpg`} />
+        <img ref={ ref } data-src={`https://pschina.github.io/src/assets/images/${i}.jpg`} alt="" />
       </div>
   )
 }
@@ -52,7 +52,7 @@ const onload = ()=>{
 const LazyLoadPage = ()=>(
   <div style={css.box}>
     {images}
-    <img onError={onload} src="" />
+    <img onError={onload} src="" alt="" />
   </div>
 )
 
