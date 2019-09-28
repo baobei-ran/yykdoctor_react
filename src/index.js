@@ -1,4 +1,8 @@
-import "babel-polyfill";
+// import "babel-polyfill";
+// import 'core-js/es/map';
+// import 'raf/polyfill';
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './utlis/rem';
