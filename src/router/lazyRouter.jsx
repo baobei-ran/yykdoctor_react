@@ -69,9 +69,8 @@ export default function(loading){   
             })             
         };        
         render(){            
-            let data = this.props.match;
             let Com=this.state.Com;            
-            return Com?<Com match={ data }  history={ this.props.history }/>:null;        
+            return Com && <Com { ...this.props }/>       
         };    
     };
 };

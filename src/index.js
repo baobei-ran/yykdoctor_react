@@ -1,11 +1,11 @@
 // import "babel-polyfill";
-// import 'core-js/es/map';
-// import 'raf/polyfill';
+import 'core-js/es';
+import 'raf/polyfill';
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './utlis/rem';
+import './utlis/rem.js';
 import './index.css';
 import 'antd-mobile/dist/antd-mobile.css'; 
 import './assets/css/flex.css';
